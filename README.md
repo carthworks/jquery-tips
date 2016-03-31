@@ -3,8 +3,8 @@ A collection of basic tips and tricks to help up your jQuery . By Karthikeyan
 
 
 <h3>Function get date difference </h3>
-<pre>
-<div class="highlight highlight-source-js">
+
+<p>
 function FnGetDateDifference(VarStartDate,VarEndDate){
 	//Get 1 day in milliseconds
 	var one_day=1000*60*60*24;
@@ -15,6 +15,11 @@ function FnGetDateDifference(VarStartDate,VarEndDate){
 	var difference_ms = date2_ms - date1_ms;
 	// Convert back to days and return
 	return Math.round(difference_ms/one_day); 
-}</div>
-</pre>
+}</p>
+
 <a href="https://github.com/carthworks/jquery-tips/blob/master/Get%20difference%20between%20two%20dates">FnGetDateDifference</a>
+
+<hr/>
+<h3>Common function  </h3>
+<a href="https://github.com/carthworks/jquery-tips/blob/master/commonFunctions.js">Common functions</a>
+
