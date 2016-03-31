@@ -23,3 +23,4 @@ function FnGetDateDifference(VarStartDate,VarEndDate){
 	return Math.round(difference_ms/one_day); 
 }</div
 </pre>
+<a href="https://github.com/carthworks/jquery-tips/blob/master/Get%20difference%20between%20two%20dates">FnGetDateDifference</a>
