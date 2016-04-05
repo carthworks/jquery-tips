@@ -1,6 +1,16 @@
 # jquery-tips
 A collection of basic tips and tricks to help up your jQuery . By Karthikeyan
 
+<h3>Function to multiply </h3>
+<pre>function multiply(a, b){
+  if (!a || !b || typeof(a) != "number" || typeof(b) != "number") {
+    return 0;
+  }
+  return a * b;
+}</pre>
+
+
+
 
 <h3>Function get date difference </h3>
 
