@@ -1,5 +1,43 @@
 # jquery-tips
 A collection of basic tips and tricks to help up your jQuery . By Karthikeyan
+<hr/>
+<h3>Function check whether a value is a number </h3>
+
+<pre>// Fn to check whether a value is a number in  jquery
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+</pre>
+<h3>Function add a zero if input is single digit</h3>
+// Fn to add a zero if input is single digig in  jquery
+<pre>function FnAddZero(item){		
+	return (item<10 ? "0"+item : item);	
+}</pre>
+
+<h3>Function to multiply </h3>
+//Fn to get the name of the place from lat and long
+<pre>function getPlaceName(lat,long){
+  var VarLat=lat; var VarLong=long;
+  var VarUrl='https://maps.googleapis.com/maps/api/geocode/json?latlng='+VarLat+','+VarLong+'&sensor=true';
+  
+$.ajax({ url:VarUrl,
+         success: function(data){
+        //   console.log(JSON.stringify(data));
+             console.log(data.results[0].formatted_address);
+             /*or you could iterate the components for only the city and state*/
+ for (var i = 0; i < data.results[4].address_components.length; i++){               
+ for (var j = 0; j < data.results[4].address_components[i].types.length; j++) {
+              
+      if(data.results[4].address_components[i].types[j] == 'country') {
+          var country_code = data.results[4].address_components[i].short_name; 
+        alert(country_code); } } }
+           
+         }
+});}</pre>
+  
+getPlaceName(24.94,55.05);
+
+<hr/>
 
 <h3>Function to multiply </h3>
 <pre>function multiply(a, b){
@@ -10,7 +48,7 @@ A collection of basic tips and tricks to help up your jQuery . By Karthikeyan
 }</pre>
 
 
-
+<hr/>
 
 <h3>Function get date difference </h3>
 
