@@ -1,4 +1,4 @@
-# jquery-tips
+# Jquery-tips
 A collection of basic tips and tricks to help up your jQuery . By Karthikeyan
 <hr/>
 <h3>Function check whether a value is a number </h3>
@@ -35,6 +35,7 @@ $.ajax({ url:VarUrl,
          }
 });}</pre>
   
+Usage: 
 getPlaceName(24.94,55.05);
 
 <hr/>
