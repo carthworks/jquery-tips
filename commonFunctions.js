@@ -192,10 +192,10 @@ function FnDrawGridView(VarContainer,ArrDatasource,ArrColumns,ObjGridConfig){
 }
 
 function FnAssetGridExpand(e){
-      return '<a class="k-button" href="#" id="toolbar-add_user" onclick="FnResAssetGridExpand()"><span class="glyphicon glyphicon-fullscreen"></span></a>';
+      return '<span style="float:left;padding:3px 10px;display:inline-block;font-size:15px;">Point Details</span><a class="k-button" href="#" id="toolbar-add_user"  title="Expand" onclick="FnResAssetGridExpand()"><span class="glyphicon glyphicon-fullscreen"></span></a>';
  };
  
-  
+ 
 var VarIsTrue=true ;
  function FnResAssetGridExpand(){	
 	 var grid = $("#genset-gridview").data("kendoGrid");
@@ -203,25 +203,32 @@ var VarIsTrue=true ;
 	 if (VarIsTrue){	
 		//console.log('1 '+VarIsTrue);	 
 		grid.setOptions({
-			  height: 650
+			  height: 530
 		});
-		$('#genset-grid-toggle').removeClass('col-md-8').addClass('col-md-12');
+		$('#genset-gridview').css({'margin':'10px' });
+		$('#gensetLiveData').css({'height':'556px' });
+		$('#genset-grid-toggle').removeClass('col-md-4').addClass('col-md-12').css({'padding':'0','height':'auto'});
 		$('#asset-alarms-toggle').removeClass('col-md-4').addClass('col-md-12');
-		
-		//grid.dataSource.read();
-		//grid.refresh();
+		$('#gProperties, #asset-alarms-toggle').hide();
+		$('#genset-grid-toggle').removeClass('col-md-12').addClass('col-md-6');
+		$('#gapps-chart').removeClass('col-md-12').addClass('col-md-6').css({'padding':'0px 0px 0px 6px'});
+		$('#xpand-view').removeClass('col-md-9').addClass('col-md-12').css({'padding':'0px 8px' });
 		VarIsTrue=false; 
 	 }
 	 else{
 		// console.log('2 '+VarIsTrue);
 		 grid.setOptions({
-			  height: 370
+			  height: 340
 			});
-		$('#genset-grid-toggle').removeClass('col-md-12').addClass('col-md-8');
+			$('#gensetLiveData').css({'height':'310px' });
+		$('#genset-grid-toggle').removeClass('col-md-12').addClass('col-md-6');
 		$('#asset-alarms-toggle').removeClass('col-md-12').addClass('col-md-4');
-		$('#genset-grid-toggle').css('height','370');
-		//grid.dataSource.read();
-		//grid.refresh();
+		$('#genset-grid-toggle').css('height','360');
+		$('#gProperties,  #asset-alarms-toggle').show();
+		$('#genset-grid-toggle').removeClass('col-md-6').addClass('col-md-12');
+		
+		$('#gapps-chart').removeClass('col-md-6').addClass('col-md-12').css({'padding':'0px 6px 0px 0px'});
+		$('#xpand-view').removeClass('col-md-12').addClass('col-md-9');
 		VarIsTrue=true;		 
 	 }
      
@@ -764,6 +771,13 @@ function FnBreadCrumbHome(){
 	$("#breadcrumb-home").submit();
 }
 
+function FnNavigateTargetPage(VarTargetPage){
+	if(VarTargetPage != ''){
+		$('form#gapp-tenant-info').attr('action',VarTargetPage);
+		$('form#gapp-tenant-info').submit();
+	}
+}
+
 function toDateFormat(time, format) {
 	var date = new Date(Number(time));
 	return date.toUTCString();
@@ -776,12 +790,35 @@ function toDateFormat(time, format) {
 	return resDate;  
 }*/
 
+// Fn to check whether a value is a number in  jquery
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+// Fn to add a zero if input is single digig in  jquery
+function FnAddZero(item){		
+	return (item<10 ? "0"+item : item);	
+}
+
 function toDateFormatRemoveGMT(time, format) {	
   var date = new Date(Number(time));  
+  
   var month = date.getUTCMonth() + 1; //months from 1-12
   var day = date.getUTCDate();
   var year = date.getUTCFullYear();
-  
+
+  var hours = date.getUTCHours();
+  var minutes = date.getUTCMinutes();
+  var seconds = date.getUTCSeconds();
+
+  var newdate = year + "-" + FnAddZero(month) + "-" + FnAddZero(day) + "   " +  FnAddZero(hours) + ":" +  FnAddZero(minutes) + ":" +  FnAddZero(seconds); 
+
+	return newdate;  
+}
+
+function FntoGMTAlone(time, format) {	
+  var date = new Date(Number(time));  
+  var month = date.getUTCMonth() + 1; //months from 1-12
   
   var hours = date.getUTCHours();
   var minutes = date.getUTCMinutes();
@@ -791,7 +828,7 @@ function toDateFormatRemoveGMT(time, format) {
   if (minutes < 10) {minutes = "0"+minutes;}
   if (seconds < 10) {seconds = "0"+seconds;}  
   
-  var newdate = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+  var newdate =  hours + ":" + minutes + ":" + seconds;
 	return newdate;  
 }
 
@@ -818,6 +855,17 @@ function FnGetCurrentTime(){
 }
 
 
+function FnToUTC(/*Date*/date) {
+    return Date.UTC(
+        date.getFullYear()
+        , date.getMonth()
+        , date.getDate()
+        , date.getHours()
+        , date.getMinutes()
+        , date.getSeconds()
+        , date.getMilliseconds()
+    );
+}
 
 
 
@@ -851,6 +899,14 @@ function FnConvertLocalToUTC(VarDate){
 	return VarStamp;
 }
 
+//For getting Timestamp with time in Asset history, Asset Monitoring-Ploat History, Alarm Monitoring
+function FnConvertLocalToUTCTime(VarDate){
+	var VarTmpDate = new Date(VarDate);	
+	var date = new Date(VarTmpDate.getFullYear(), VarTmpDate.getMonth(), VarTmpDate.getDate(), 23, 59, 59, 0).getTime();
+	var VarStamp = parseInt(date - (VarTmpDate.getTimezoneOffset() * 60000));
+	
+	return VarStamp;
+}
 
 function FnAllowIPNumbersOnly(inputText,inputId,errorId) {
 	$('#'+errorId).html('');
