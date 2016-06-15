@@ -1,0 +1,22 @@
+
+How to select a radio button with jQuery:
+----------------------------------------
+	********* HTML markup checkbox:
+			<input type="radio" id="status_active" name="status" class="md-radiobtn" value="ACTIVE" disabled="">
+			<input type="radio" id="status_inactive" name="status" class="md-radiobtn green" checked="checked" value="INACTIVE" disabled="">		
+			
+			
+			********* Set a checkbox value:			
+			if(ArrResponse['active'] == true){
+				$('#gapp-asset-form #status_active').attr('checked',true); console.log(ArrResponse.active);
+			} else {
+				$('#gapp-asset-form #status_inactive').attr('checked',true); console.log(ArrResponse.active);
+			}
+			
+			
+			********* Get a checkbox value:			
+			$("input[name='status']").each(function(){				
+				if($(this).is(':checked') == true && $(this).val()=='ACTIVE'){
+					VarStatus = true;
+				}
+			});
