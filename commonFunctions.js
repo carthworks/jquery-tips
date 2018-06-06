@@ -1,3 +1,23 @@
+
+
+// for https://datatables.ne  get the value of a table from its td 
+$('#cust-table tbody ').on('click', 'a.cEditClicked', function () {
+		var ctable = $('#customer-table').DataTable();
+		var data = table.row($(this).parents('tr')).data();
+		alert(data[0] + "  custmoerEditClicked:   " + data[5]);
+	});
+
+$('#cust-table tbody ').on('click', 'a.cDeleteClicked', function () {
+		var ctable = $('#customer-table').DataTable();
+		var data = table.row($(this).parents('tr')).data();
+		alert(data[0] + "  customerDeleteClicked:   " + data[5]);
+	});
+
+
+
+
+
+
 function FnMakeAjaxRequest(url, type, parameters, contenttype, datatype, FnManageList){
 	$.ajax({
 		type: type,
